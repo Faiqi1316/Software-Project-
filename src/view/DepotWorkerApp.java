@@ -263,10 +263,13 @@ class Manager {
 public class DepotWorkerApp {
     private Manager manager;
 
+    private DepotWorkerController controller;
+
     public DepotWorkerApp() {
+        controller = new DepotWorkerController(); // Instantiate the controller
         manager = new Manager();
         manager.initializeFromFiles("customers.txt", "parcels.txt");
-        createAndShowGUI();
+        createAndShowGUI(controller); // Pass the controller to the view
 
         // Save customers and parcels when the application closes
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -276,7 +279,7 @@ public class DepotWorkerApp {
         }));
     }
 
-    private void createAndShowGUI() {
+    private void createAndShowGUI(DepotWorkerController controller) {
         JFrame frame = new JFrame("Depot Worker Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
